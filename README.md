@@ -176,20 +176,23 @@ CAPTCHAs or source sessions can still expire and need another manual step.
 This folder is an independent Git repository with its own `main` branch. It does
 not use the parent GeM Bid Tracker remote. ZIP transfers are not required.
 
-Connect the GitHub repository once from **this project folder**:
+Private repository: https://github.com/deepakmr888/facade-lighting-portal
+
+The original checkout is connected to that repository. For a separately
+initialized copy, connect it once from **this project folder**:
 
 ```powershell
-git remote add origin YOUR_REPOSITORY_URL
+git remote add origin https://github.com/deepakmr888/facade-lighting-portal.git
 git push -u origin main
 ```
 
 If `origin` is already configured, check `git remote -v` and use
-`git remote set-url origin YOUR_REPOSITORY_URL` only when changing repositories.
+`git remote set-url origin URL` only when changing repositories.
 
 On the second computer:
 
 ```powershell
-git clone YOUR_REPOSITORY_URL facade-lighting-portal
+git clone https://github.com/deepakmr888/facade-lighting-portal.git facade-lighting-portal
 cd facade-lighting-portal
 .\start.cmd
 ```
