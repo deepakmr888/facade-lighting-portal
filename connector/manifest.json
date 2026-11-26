@@ -1,0 +1,63 @@
+{
+  "manifest_version": 3,
+  "name": "Facade Lighting Portal – Tenderkart connection",
+  "version": "1.1.0",
+  "minimum_chrome_version": "120",
+  "description": "Use your signed-in Tenderkart tab for the local facade-lighting portal. Login tokens stay in Tenderkart.",
+  "permissions": [
+    "scripting",
+    "storage",
+    "alarms",
+    "downloads",
+    "unlimitedStorage"
+  ],
+  "host_permissions": [
+    "https://tenderkart.in/*",
+    "http://127.0.0.1:4070/*",
+    "http://localhost:4070/*",
+    "https://jktenders.gov.in/*",
+    "https://etender.up.nic.in/*",
+    "https://defproc.gov.in/*",
+    "https://etenders.gov.in/*",
+    "https://etenders.hry.nic.in/*",
+    "https://etenders.chd.nic.in/*",
+    "https://govtprocurement.delhi.gov.in/*",
+    "https://uktenders.gov.in/*",
+    "https://coalindiatenders.nic.in/*",
+    "https://tntenders.gov.in/*",
+    "https://eprocure.gov.in/*",
+    "https://eproc.rajasthan.gov.in/*",
+    "https://ddtenders.gov.in/*",
+    "https://mptenders.gov.in/*",
+    "https://hptenders.gov.in/*",
+    "https://mahatenders.gov.in/*",
+    "https://bidplus.gem.gov.in/*",
+    "https://www.ireps.gov.in/*",
+    "https://tender.nprocure.com/*",
+    "https://eproc.cgstate.gov.in/*",
+    "https://etender.cpwd.gov.in/*",
+    "https://kppp.karnataka.gov.in/*",
+    "https://nbcc.enivida.com/*",
+    "https://eproc.hal-india.co.in/*",
+    "https://apps.powergrid.in/*",
+    "https://quantum.gep.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://localhost:4070/*",
+        "http://127.0.0.1:4070/*"
+      ],
+      "js": [
+        "content.js"
+      ]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Connect facade portal"
+  }
+}

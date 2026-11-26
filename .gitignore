@@ -1,0 +1,13 @@
+node_modules/
+data/**
+!data/.gitkeep
+.runtime/
+exports/
+release/
+*.log
+.env
+.env.*
+!.env.example
+*.zip
+*.tmp
+.DS_Store
