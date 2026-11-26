@@ -6,4 +6,5 @@ output.on('close',()=>console.log(`Source ZIP: ${output.path} (${archive.pointer
 archive.pipe(output);
 for(const name of ['server','scripts','public','connector','tests'])archive.directory(path.join(root,name),name);
 for(const name of ['package.json','package-lock.json','README.md','start.cmd','start-lan.cmd','.gitignore','.env.example'])archive.file(path.join(root,name),{name});
+for(const name of ['.gitattributes','saved-data.json'])if(fs.existsSync(path.join(root,name)))archive.file(path.join(root,name),{name});
 archive.append('',{name:'data/.gitkeep'});archive.finalize();

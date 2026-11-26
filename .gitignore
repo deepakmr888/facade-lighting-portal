@@ -2,6 +2,7 @@ node_modules/
 data/**
 !data/.gitkeep
 .runtime/
+/.data-restore-*/
 exports/
 release/
 *.log

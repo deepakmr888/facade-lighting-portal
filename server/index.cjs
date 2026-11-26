@@ -75,6 +75,9 @@ function createApp({ root = process.env.FACADE_DATA_DIR || path.resolve(__dirnam
   return {app,store,bridge,sync,close(){sync.stop();bridge.close();}};
 }
 if(require.main===module){
+ (async()=>{
+  const restored=await require('./data-backup.cjs').ensureSavedData();
+  if(restored.restored)console.log(`Restored ${restored.records} saved tenders; no Tenderkart re-download is required.`);
   const portal=createApp(),port=Number(process.env.PORT||4070),host=process.env.HOST||'127.0.0.1';
   const server=portal.app.listen(port,host,()=>{
     console.log(`Facade lighting portal: http://localhost:${port}`);
@@ -82,5 +85,6 @@ if(require.main===module){
   });
   const close=()=>{portal.close();server.close(()=>process.exit(0));};
   process.once('SIGINT',close);process.once('SIGTERM',close);
+ })().catch(error=>{console.error('Startup: '+error.message);process.exitCode=1;});
 }
 module.exports={createApp};

@@ -87,10 +87,35 @@ valid version, `data/documents` holds the original linked files, and
 `data/extracted` holds text by SHA256. Excel lives at `data/exports/tenders.xlsx`
 with separate Tenders, Documents and Document evidence worksheets.
 
-**Data and documents are deliberately ignored by Git and excluded from the source
-ZIP.** To use the current dataset on another machine, pause, stop this server,
-then copy the complete `data` folder separately. Login must be established again.
-A fresh clone starts empty and can populate records using Sync latest.
+The runtime `data` folder is ignored by Git, but a saved-data backup is uploaded
+to this private GitHub repository's Releases area. `saved-data.json` identifies
+the current backup and its SHA256. On an empty installation, startup downloads
+and restores it before opening the portal. GitHub authentication uses your
+existing Git credential manager; no credentials are stored in the repository.
+No Tenderkart re-download is required for the restored tenders.
+
+For a manual/offline transfer, copy **`downloaded-data.zip` into the project
+folder beside `start.cmd`**, then double-click `start.cmd`. The app validates and
+extracts it into `data/tenders.json`, `data/documents`, `data/extracted` and
+`data/exports/tenders.xlsx`. Do not extract it into a second nested project folder.
+If extracting manually, the correct final path is `PROJECT\data\tenders.json`.
+Startup preserves an existing non-empty local dataset. It does not overwrite
+newer local work after a code pull. Browser pairing/login data is never restored;
+sign into Tenderkart again when you need new records.
+
+To create and publish a newer dataset from either computer, pause downloads first:
+
+```powershell
+npm run data:publish
+git add saved-data.json
+git commit -m "Update saved tender dataset"
+git push
+```
+
+This builds `downloaded-data.zip`, uploads it as a private release asset and
+updates the small descriptor tracked by Git. To build a local backup only, use
+`npm run data:backup`. To restore a supplied archive into an empty installation,
+use `npm run data:restore -- "C:\path\downloaded-data.zip"`.
 
 To initialize an empty project from the original standalone HTML bundle:
 
@@ -222,11 +247,11 @@ If both computers committed different changes before pulling, `--ff-only` stops
 without replacing your work. Use `git pull --rebase`, resolve any reported conflicts,
 then `git push`. Do not use force pushes or hard resets to synchronize machines.
 
-Inspect `git status` before committing. `data`, `.runtime`, `node_modules`,
-credentials and downloaded documents are ignored. **Git synchronizes code only**;
-each machine has its own data and browser login. To copy the current dataset,
-pause/stop the app and transfer the complete `data` folder separately once.
-Install the connector and sign into Tenderkart on each computer that downloads.
+Inspect `git status` before committing. Git synchronizes code and the
+`saved-data.json` backup descriptor; the large dataset is in private GitHub
+release assets. A fresh computer restores it on first start. Existing local
+data and browser login remain specific to each machine. Install the connector
+and sign into Tenderkart on each computer that downloads new tenders.
 
 ## Validation and packaging
 
